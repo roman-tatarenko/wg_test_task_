@@ -1,11 +1,8 @@
 import json
-
-import pytest
 import requests
 
 
 class TestSuiteOne:
-
     def test_how_many_categories(self, get_access_token):
         access_token = get_access_token
         response = requests.get(

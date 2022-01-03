@@ -39,5 +39,3 @@ def get_access_token(client_id, client_secret):
     return access_token
 
 
-class GlobalClassToken:
-    access_token = None
