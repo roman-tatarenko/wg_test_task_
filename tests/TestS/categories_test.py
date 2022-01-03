@@ -1,25 +1,17 @@
 import json
+
+import pytest
 import requests
-from olx_authorization import Authorization
-from tests.conftest import GlobalClassToken
 
 
 class TestSuiteOne:
-    def test_setup(self, client_id, client_secret):
-        """
-        Get 'client_id', 'client_secret' parameters from test run command.
-        Set authorization.
-        """
-        GlobalClassToken.access_token = Authorization(
-            client_id=client_id,
-            client_secret=client_secret
-        ).get_token()
 
-    def test_how_many_categories(self):
+    def test_how_many_categories(self, get_access_token):
+        access_token = get_access_token
         response = requests.get(
             url="https://www.olx.ua/api/partner/categories",
             headers={
-                'Authorization': 'Bearer ' + GlobalClassToken.access_token,
+                'Authorization': 'Bearer ' + access_token,
                 'Version': '2.0'
             }
         )
@@ -29,11 +21,12 @@ class TestSuiteOne:
         expected_count_of_categories = 514
         assert actual_count_of_categories == expected_count_of_categories
 
-    def test_check_id_of_category(self):
+    def test_check_id_of_category(self, get_access_token):
+        access_token = get_access_token
         response = requests.get(
             url="https://www.olx.ua/api/partner/categories/6",
             headers={
-                'Authorization': 'Bearer ' + GlobalClassToken.access_token,
+                'Authorization': 'Bearer ' + access_token,
                 'Version': '2.0'
             }
         )
