@@ -24,7 +24,7 @@ def client_secret(request):
 
 
 @pytest.fixture(scope="class")
-def get_access_token(client_id, client_secret, request):
+def get_access_token(client_id, client_secret):
     response = requests.post(
         url="https://www.olx.ua/api/open/oauth/token",
         json={
@@ -36,7 +36,6 @@ def get_access_token(client_id, client_secret, request):
     )
     content = json.loads(response.content.decode())
     access_token = content['access_token']
-    request.access_token = access_token
     return access_token
 
 
