@@ -38,4 +38,3 @@ def get_access_token(client_id, client_secret):
     access_token = content['access_token']
     return access_token
 
-
