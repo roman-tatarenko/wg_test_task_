@@ -1,4 +1,7 @@
+import json
+
 import pytest as pytest
+import requests
 
 
 def pytest_addoption(parser):
@@ -20,5 +23,18 @@ def client_secret(request):
     return client_secret
 
 
-class GlobalClassToken:
-    access_token = None
+@pytest.fixture(scope="class")
+def get_access_token(client_id, client_secret):
+    response = requests.post(
+        url="https://www.olx.ua/api/open/oauth/token",
+        json={
+            "grant_type": "client_credentials",
+            "client_id": client_id,
+            "client_secret": client_secret,
+            "scope": "v2 read write"
+        }
+    )
+    content = json.loads(response.content.decode())
+    access_token = content['access_token']
+    return access_token
+
