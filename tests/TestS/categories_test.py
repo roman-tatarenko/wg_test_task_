@@ -14,9 +14,8 @@ class TestSuiteOne:
             'Authorization': 'Bearer ' + access_token,
             'Version': '2.0'
         }
-        response = requests.get(url=url, headers=headers)
-        content = response.json()
-        return content
+        response = requests.get(url=url, headers=headers).json()
+        return response
 
     def test_how_many_categories(self, get_access_token):
         access_token = get_access_token
